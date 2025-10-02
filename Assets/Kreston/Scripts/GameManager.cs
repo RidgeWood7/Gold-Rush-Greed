@@ -18,13 +18,13 @@ public class GameManager : MonoBehaviour
     //bools for unlocked regions
     [Header("River")]
     [SerializeField] private bool _unlockedRiver;
-    [SerializeField] private BoxCollider2D _boxColliderRiver;
+    public BoxCollider2D _colliderRiver;
     [Header("Mines")]
     [SerializeField] private bool _unlockedMines;
-    [SerializeField] private BoxCollider2D _boxColliderMines;
+    public BoxCollider2D _colliderMines;
     [Header("Fields")]
     [SerializeField] private bool _unlockedFields;
-    [SerializeField] private BoxCollider2D _boxColliderFields;
+    public BoxCollider2D _colliderFields;
     [Header("Ints:")]
     //Ints of the amount of things the player has
     [SerializeField] private int _wheelsCollected;
@@ -41,9 +41,36 @@ public class GameManager : MonoBehaviour
     //Region Checkers
     private void Update()
     {
-        //Mines
-        if (_unlockedMines){
+        //River
+        if (_unlockedRiver)
+        {
+            Debug.Log("Unlocked");
+            _colliderRiver.enabled = false;
+        }else
+        {
+            _colliderRiver.enabled = true;
+        }
 
+        //Mines
+        if (_unlockedMines)
+        {
+            Debug.Log("Unlocked");
+            _colliderMines.enabled = false;
+        }
+        else
+        {
+            _colliderMines.enabled = true;
+        }
+
+        //Fields
+        if (_unlockedFields)
+        {
+            Debug.Log("Unlocked");
+            _colliderFields.enabled = false;
+        }
+        else
+        {
+            _colliderFields.enabled = true;
         }
     }
 
