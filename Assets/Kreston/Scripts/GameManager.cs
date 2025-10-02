@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool _hasHorse;
     [SerializeField] private bool _hasStagecoach;
     [SerializeField] private bool _hasTrain;
-    [Header("Regions:")]
     //bools for unlocked regions
     [Header("River")]
     [SerializeField] private bool _unlockedRiver;
@@ -27,7 +26,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool _unlockedFields;
     [SerializeField] private BoxCollider2D _boxColliderFields;
     [Header("Ints:")]
-
     //Ints of the amount of things the player has
     [SerializeField] private int _wheelsCollected;
     [SerializeField] private int _wheelsInInv;
@@ -53,16 +51,15 @@ public class GameManager : MonoBehaviour
     {
         weight += weightAdding;
 
-        if (type == "Dust")
-        {_gold += goldAmount * _multDust;}
+        _gold += type switch
+        {
+            "Dust" => goldAmount * _multDust,
+            "Ingot" => goldAmount * _multIngot,
+            "Drilled" => goldAmount * _multDrilled,
+            _ => 0
+        };
 
-        else if (type == "Ingot")
-        {_gold += goldAmount * _multIngot;}
-
-        else if (type == "Drilled")
-        {_gold += goldAmount * _multDrilled;}
-
-        else
-        {Debug.Log("There was not a correct string name, please enter either: \"Dust\" \"Ingot\" \"Drilled\" ");}
+        if (type != "Dust" && type != "Ingot" && type != "Drilled")
+            Debug.Log("There was not a correct string name, please enter either: \"Dust\" \"Ingot\" \"Drilled\" ");
     }
 }
