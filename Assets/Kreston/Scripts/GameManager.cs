@@ -4,7 +4,6 @@ public class GameManager : MonoBehaviour
 {
     [Header("Inventory:")]
     //Inventory Bools For if the player has an item or not
-    //public bool has
     [SerializeField] private bool _hasPan;
     [SerializeField] private bool _hasSluiceBox;
     [SerializeField] private bool _hasPick;
@@ -15,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool _hasHorse;
     [SerializeField] private bool _hasStagecoach;
     [SerializeField] private bool _hasTrain;
+
     //bools for unlocked regions
     [Header("River")]
     [SerializeField] private bool _unlockedRiver;
@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool _unlockedFields;
     public BoxCollider2D _colliderFields;
     [Header("Ints:")]
+
     //Ints of the amount of things the player has
     [SerializeField] private int _wheelsCollected;
     [SerializeField] private int _wheelsInInv;
