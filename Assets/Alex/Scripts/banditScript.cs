@@ -10,7 +10,7 @@ public class banditScript : MonoBehaviour
     private float spawnLocation = 0.0f;
     private bool moving = true;
     private float speed = 1.5f;
-    private List<float> spawnLocations = new List<float>();
+    private static List<float> spawnLocations = new List<float> { -6, -4, -2, 0, 2, 4, 6 };
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -53,20 +53,24 @@ public class banditScript : MonoBehaviour
     private Vector3 chooseSpawn()
     {
 
-        if (spawnLocations.Count > 0)
+        if (spawnLocations.Count <= 0)
         {
             
-            for (float i = -6.0f; i < 6.0f; i++)
+            for (float i = -6.0f; i < 7.0f; i += 2)
             {
                 spawnLocations.Add(i);
                 
             }
-            Debug.Log(spawnLocations.ToString());
+
+           
         }
 
+        int index = Random.Range(0, spawnLocations.Count);
+        spawnLocation = spawnLocations[index];
 
-        spawnLocation = spawnLocations[Random.Range(0, spawnLocations.Count - 1)];
         spawnLocations.Remove(spawnLocation);
+        
+
 
         return new Vector3(spawnLocation, 7, 0);
     }
