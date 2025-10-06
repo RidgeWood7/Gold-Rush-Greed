@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Hitbox
+  - Dialogue
+  - Collectable
+  - Purchaseable
   layers:
   - Default
   - TransparentFX
