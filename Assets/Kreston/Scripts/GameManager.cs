@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
     [Header("Ints:")]
 
     //Ints of the amount of things the player has
-    [SerializeField] private int _wheelsCollected;
-    [SerializeField] private int _wheelsInInv;
+    [SerializeField] [Range(0f, 4f)] private int _wheelsCollected;
+    [SerializeField] [Range(0f, 4f)] private int _wheelsInInv;
     [SerializeField] private int _coal;
     [SerializeField] private int _oil;
     [SerializeField] private int _gold;
@@ -43,33 +43,33 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //River
-        if (_unlockedRiver)
+        if (_unlockedRiver && _colliderRiver != null)
         {
             Debug.Log("Unlocked");
             _colliderRiver.enabled = false;
-        }else
+        }else if (_colliderRiver != null)
         {
             _colliderRiver.enabled = true;
         }
 
         //Mines
-        if (_unlockedMines)
+        if (_unlockedMines && _colliderRiver != null)
         {
             Debug.Log("Unlocked");
             _colliderMines.enabled = false;
         }
-        else
+        else if (_colliderMines != null)
         {
             _colliderMines.enabled = true;
         }
 
         //Fields
-        if (_unlockedFields)
+        if (_unlockedFields && _colliderFields != null)
         {
             Debug.Log("Unlocked");
             _colliderFields.enabled = false;
         }
-        else
+        else if (_colliderFields != null)
         {
             _colliderFields.enabled = true;
         }
