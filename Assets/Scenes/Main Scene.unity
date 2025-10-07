@@ -1160,7 +1160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32aad488a7623c94292d6be975f4a979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRange: 3.94
+  interactRange: 2
 --- !u!58 &1013581808
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1196,7 +1196,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3.94
+  m_Radius: 2
 --- !u!1 &1222059375
 GameObject:
   m_ObjectHideFlags: 0
