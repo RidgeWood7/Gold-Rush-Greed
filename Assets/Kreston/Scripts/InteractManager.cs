@@ -4,7 +4,7 @@ using UnityEngine.Events;
 [ExecuteAlways]
 public class InteractManager : MonoBehaviour
 {
-    [SerializeField] private float interactRange = 1.3f;
+    [SerializeField] private float interactRange;
     private CircleCollider2D interactCollider;
     
     private void Awake() =>interactCollider = GetComponent<CircleCollider2D>();
