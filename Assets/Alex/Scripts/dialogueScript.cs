@@ -17,7 +17,8 @@ public struct DialoguePiece
 public class dialogueScript : MonoBehaviour
 {
     //Dialogue Variables
-    public List<DialoguePiece> dialogue;
+
+    private dialogue currentDialogue;
 
     public TMPro.TMP_Text dialogueText;
     public TMPro.TMP_Text dialogueName;
@@ -27,20 +28,25 @@ public class dialogueScript : MonoBehaviour
     private bool dialogueBoxOpen = false;
     private int dialogueIndex;
     private bool isDialogueRunning;
-    
+
+    private void Start()
+    {
+
+    }
 
 
-    private void Update()
+
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && dialogueBoxOpen && !isDialogueRunning)
         {
             dialogueIndex++;
-            if (dialogueIndex >= dialogue.Count)
+            if (dialogueIndex >= currentDialogue.lines.Count)
             {
                 StopDialogue();
                 return;
             }
-            StartCoroutine(WriteDialogue(dialogue[dialogueIndex]));
+            StartCoroutine(WriteDialogue(currentDialogue.lines[dialogueIndex]));
         }
 
 
@@ -53,15 +59,16 @@ public class dialogueScript : MonoBehaviour
     }
 
 
-    public void StartDialogue()
+    public void StartDialogue(dialogue newDialogue)
     {
+        currentDialogue = newDialogue;
         dialogueIndex = 0;
 
 
 
         dialogueBoxOpen = true;
         gameObject.SetActive(true);
-        StartCoroutine(WriteDialogue(dialogue[0]));
+        StartCoroutine(WriteDialogue(currentDialogue.lines[0]));
 
         //dialogueIcon.sprite = 
     }
@@ -72,15 +79,15 @@ public class dialogueScript : MonoBehaviour
         dialogueBoxOpen = false;
         gameObject.SetActive(false);
     }
-    
+
     public IEnumerator WriteDialogue(DialoguePiece dialogue)
     {
-        
+
         dialogueName.SetText(dialogue.name);
         dialogueText.SetText("");
         dialogueIcon.sprite = dialogue.icon;
 
-        isDialogueRunning = true;  
+        isDialogueRunning = true;
         for (int i = 0; i < dialogue.dialogue.Length; i++)
         {
             dialogueText.text += dialogue.dialogue[i];
