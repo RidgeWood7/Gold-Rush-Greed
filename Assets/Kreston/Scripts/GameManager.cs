@@ -1,7 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private bool coolingDown = false;
+
     [Header("Inventory:")]
     //Inventory Bools For if the player has an item or not
     [SerializeField] private bool _hasPan;
@@ -74,20 +77,28 @@ public class GameManager : MonoBehaviour
             _colliderFields.enabled = true;
         }
     }
-
-    public void Collecting(int goldAmount, int weightAdding, string type)
+    
+    public void Collecting(CollectionData data)
     {
-        weight += weightAdding;
-
-        _gold += type switch
+        if (!coolingDown)
         {
-            "Dust" => goldAmount * _multDust,
-            "Ingot" => goldAmount * _multIngot,
-            "Drilled" => goldAmount * _multDrilled,
+        weight += data.weightAdding;
+
+        _gold += data.type switch
+        {
+            CollectionData.TypeEnum.Dust =>  _multDust,
+            CollectionData.TypeEnum.Ingot =>  _multIngot,
+            CollectionData.TypeEnum.Drilled =>  _multDrilled,
             _ => 0
         };
+            StartCoroutine(Cooldown());
+        }
+    }
 
-        if (type != "Dust" && type != "Ingot" && type != "Drilled")
-            Debug.Log("There was not a correct string name, please enter either: \"Dust\" \"Ingot\" \"Drilled\" ");
+    IEnumerator Cooldown()
+    {
+        coolingDown = true;
+        yield return new WaitForSeconds(2f);
+        coolingDown = false;
     }
 }

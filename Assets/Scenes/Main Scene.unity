@@ -877,37 +877,6 @@ Transform:
   - {fileID: 1405612479}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &668209805
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 668209806}
-  m_Layer: 0
-  m_Name: Interact Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &668209806
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668209805}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 945311906}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &796375690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,7 +1081,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 121013721}
-  - {fileID: 668209806}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1013581805
@@ -1127,7 +1095,7 @@ GameObject:
   - component: {fileID: 1013581808}
   - component: {fileID: 1013581807}
   m_Layer: 0
-  m_Name: Interact Tester
+  m_Name: Interact Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1160,7 +1128,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32aad488a7623c94292d6be975f4a979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRange: 3.94
+  interactRange: 2
+  onInteractDialogue:
+    m_PersistentCalls:
+      m_Calls: []
+  onInteractCollectable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 121013722}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Collecting
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: CollectionData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onInteractPurchaseable:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!58 &1013581808
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1196,7 +1185,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3.94
+  m_Radius: 2
 --- !u!1 &1222059375
 GameObject:
   m_ObjectHideFlags: 0
