@@ -6,56 +6,62 @@ using UnityEngine.PlayerLoop;
 [ExecuteAlways]
 public class InteractManager : MonoBehaviour
 {
-    [SerializeField] private float interactRange;
-    private CircleCollider2D interactCollider;
-    private bool nearbyDialogue;
-    private bool nearbyCollectable;
-    private bool nearbyPurchaseable;
+    //All Unity Events
+    public UnityEvent onInteractDialogue;
+    public UnityEvent collectDust;
+    public UnityEvent collectIngot; //There is no drilled collection because it is an automatic collection
+    public UnityEvent onInteractPurchaseable;
 
-    private void Awake() =>interactCollider = GetComponent<CircleCollider2D>();
-    private void Reset() => interactCollider = GetComponent<CircleCollider2D>();
+    [SerializeField] private float _interactRange;
+    private CircleCollider2D _interactCollider;
+    private bool _nearbyDialogue;
+    private bool _nearbyCollectableDust;
+    private bool _nearbyCollectableIngot;
+    private bool _nearbyPurchaseable;
+
+    private void Awake() =>_interactCollider = GetComponent<CircleCollider2D>();
+    private void Reset() => _interactCollider = GetComponent<CircleCollider2D>();
 
     private void Update()
     {
-        interactCollider.radius = interactRange;
+        _interactCollider.radius = _interactRange;
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (nearbyDialogue)
+            if (_nearbyDialogue)
                 onInteractDialogue.Invoke();
-            else if (nearbyCollectable)
-                onInteractCollectable.Invoke();
-            else if (nearbyPurchaseable)
+            else if (_nearbyCollectableDust)
+                collectDust.Invoke();
+            else if (_nearbyCollectableIngot)
+                collectIngot.Invoke();
+            else if (_nearbyPurchaseable) //will need one for each purchaseable item
                 onInteractPurchaseable.Invoke();
         }
     }
 
-    public UnityEvent onInteractDialogue;
-    public UnityEvent onInteractCollectable;
-    public UnityEvent onInteractPurchaseable;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Dialogue"))
-            nearbyDialogue = true;
-        else if (collision.gameObject.CompareTag("Collectable"))
-            nearbyCollectable = true;
+            _nearbyDialogue = true;
+        else if (collision.gameObject.CompareTag("CollectableDust"))
+            _nearbyCollectableDust = true;
+        else if (collision.gameObject.CompareTag("CollectableIngot"))
+            _nearbyCollectableIngot = true;
         else if (collision.gameObject.CompareTag("Purchaseable"))
-            nearbyPurchaseable = true;
+            _nearbyPurchaseable = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Dialogue"))
-            nearbyDialogue = false;
-        else if (collision.gameObject.CompareTag("Collectable"))
-            nearbyCollectable = false;
-        else if (collision.gameObject.CompareTag("Purchaseable"))
-            nearbyPurchaseable = false;
+            _nearbyDialogue = false;
+            _nearbyCollectableDust = false;
+            _nearbyCollectableIngot = false;
+            _nearbyPurchaseable = false;
     }
 
     //Drawing the Gizmos
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, interactRange);
+        Gizmos.DrawWireSphere(transform.position, _interactRange);
     }
 }

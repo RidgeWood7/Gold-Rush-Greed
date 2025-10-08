@@ -50,7 +50,7 @@ public class dialogueScript : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Escape) && dialogueBoxOpen)
+        if (Input.GetKeyDown(KeyCode.Q) && dialogueBoxOpen)
         {
             StopDialogue();
         }

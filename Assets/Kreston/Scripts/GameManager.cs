@@ -4,6 +4,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private bool coolingDown = false;
+    private bool coolingDownDrillGold = false;
+    private bool coolingDownDrillOil = false;
 
     [Header("Inventory:")]
     //Inventory Bools For if the player has an item or not
@@ -31,26 +33,45 @@ public class GameManager : MonoBehaviour
     [Header("Ints:")]
 
     //Ints of the amount of things the player has
-    [SerializeField] [Range(0f, 4f)] private int _wheelsCollected;
-    [SerializeField] [Range(0f, 4f)] private int _wheelsInInv;
+    [SerializeField][Range(0f, 4f)] private int _wheelsCollected;
+    [SerializeField][Range(0f, 4f)] private int _wheelsInInv;
+    [SerializeField][Range(0f, 4f)] private int _drillsUnlockedOil;
+    [SerializeField][Range(0f, 4f)] private int _drillsUnlockedGold;
     [SerializeField] private int _coal;
     [SerializeField] private int _oil;
     [SerializeField] private int _gold;
     [Header("Multipliers:")]
     [SerializeField] private int _multDust = 1;
-    [SerializeField] private int _multIngot = 8;
-    [SerializeField] private int _multDrilled = 22;
+    [SerializeField] private int _multIngot = 5;
+    [SerializeField] private int _multDrilledOil = 10;
+    [SerializeField] private int _multDrilledGold = 50;
     public int weight;
 
-    //Region Checkers
     private void Update()
     {
+        //Collecting For Drills
+        if (!coolingDownDrillGold && _drillsUnlockedGold > 0)
+        {
+            _gold += _drillsUnlockedGold * _multDrilledGold;
+            weight++;
+
+            StartCoroutine(CooldownDrillGold());
+        }
+        if (!coolingDownDrillOil && _drillsUnlockedOil > 0)
+        {
+            _oil += _drillsUnlockedOil * _multDrilledOil;
+            weight++;
+
+            StartCoroutine(CooldownDrillOil());
+        }
+
         //River
         if (_unlockedRiver && _colliderRiver != null)
         {
             Debug.Log("Unlocked");
             _colliderRiver.enabled = false;
-        }else if (_colliderRiver != null)
+        }
+        else if (_colliderRiver != null)
         {
             _colliderRiver.enabled = true;
         }
@@ -77,20 +98,25 @@ public class GameManager : MonoBehaviour
             _colliderFields.enabled = true;
         }
     }
-    
+
     public void Collecting(CollectionData data)
     {
-        if (!coolingDown)
+        if (!coolingDown && _hasPan && data.type == CollectionData.TypeEnum.Dust)
         {
-        weight += data.weightAdding;
+            weight += data.weightAdding * _multDust;
+            _gold += _multDust;
+            if (_hasSluiceBox)
+            {
+                _gold += 2;
+                weight += 2;
+            }
 
-        _gold += data.type switch
+            StartCoroutine(Cooldown());
+        }
+        if (!coolingDown && _hasPick && data.type == CollectionData.TypeEnum.Ingot)
         {
-            CollectionData.TypeEnum.Dust =>  _multDust,
-            CollectionData.TypeEnum.Ingot =>  _multIngot,
-            CollectionData.TypeEnum.Drilled =>  _multDrilled,
-            _ => 0
-        };
+            weight += data.weightAdding * _multIngot;
+            _gold += _multIngot;
             StartCoroutine(Cooldown());
         }
     }
@@ -100,5 +126,17 @@ public class GameManager : MonoBehaviour
         coolingDown = true;
         yield return new WaitForSeconds(2f);
         coolingDown = false;
+    }
+    IEnumerator CooldownDrillGold()
+    {
+        coolingDownDrillGold = true;
+        yield return new WaitForSeconds(20f);
+        coolingDownDrillGold = false;
+    }
+    IEnumerator CooldownDrillOil()
+    {
+        coolingDownDrillOil = true;
+        yield return new WaitForSeconds(20f);
+        coolingDownDrillOil = false;
     }
 }

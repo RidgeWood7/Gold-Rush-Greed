@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   lines:
-  - name: Test 1
-    dialogue: Test 1
-    icon: {fileID: 7817649826292577478, guid: f1f2c0e32a8aa4046ad9677639e6664d, type: 3}
+  - name: Doug
+    dialogue: YTo y=rodzfcokgpmd
+    icon: {fileID: 3943562803724297591, guid: 494eb83602aeb66438e198be60dae2dd, type: 3}
   - name: Test 2
     dialogue: 67
     icon: {fileID: 3943562803724297591, guid: 494eb83602aeb66438e198be60dae2dd, type: 3}
