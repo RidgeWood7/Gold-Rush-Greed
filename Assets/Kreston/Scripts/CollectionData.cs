@@ -6,8 +6,7 @@ public class CollectionData : ScriptableObject
     public enum TypeEnum
     {
         Dust,
-        Ingot,
-        Drilled
+        Ingot
     }
     public TypeEnum type;
     public int weightAdding;
