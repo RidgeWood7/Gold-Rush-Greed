@@ -28,6 +28,7 @@ public class dialogueScript : MonoBehaviour
     private bool dialogueBoxOpen = false;
     private int dialogueIndex;
     private bool isDialogueRunning;
+    private string currentLine;
 
     private void Start()
     {
@@ -38,6 +39,13 @@ public class dialogueScript : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape) && dialogueBoxOpen)
+        {
+            dialogueText.text = currentLine;
+        }
+
+
+
         if (Input.GetKeyDown(KeyCode.Space) && dialogueBoxOpen && !isDialogueRunning)
         {
             dialogueIndex++;
@@ -57,6 +65,7 @@ public class dialogueScript : MonoBehaviour
 
 
     }
+
 
 
     public void StartDialogue(dialogue newDialogue)
@@ -80,19 +89,21 @@ public class dialogueScript : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public IEnumerator WriteDialogue(DialoguePiece dialogue)
+    public IEnumerator WriteDialogue(DialoguePiece dialogue) //yield return new WaitForSeconds(textSpeed); //StartCoroutine(WriteDialogue(currentDialogue.lines[0]));
     {
-
+        currentLine = dialogue.dialogue.ToString();
         dialogueName.SetText(dialogue.name);
         dialogueText.SetText("");
         dialogueIcon.sprite = dialogue.icon;
 
         isDialogueRunning = true;
         for (int i = 0; i < dialogue.dialogue.Length; i++)
-        {
-            dialogueText.text += dialogue.dialogue[i];
+        {   
+            
+            dialogueText.text += dialogue.dialogue[i];                
             yield return new WaitForSeconds(textSpeed);
         }
+        
         isDialogueRunning = false;
 
         //dialogueText.SetText(dialogue.dialogue);
