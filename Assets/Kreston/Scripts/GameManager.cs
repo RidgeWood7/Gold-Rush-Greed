@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
     //Inventory Bools For if the player has an item or not
     [SerializeField] private bool _hasPan;
     [SerializeField] private bool _hasSluiceBox;
+    [SerializeField] private int _sluiceBoxCost = 50;
     [SerializeField] private bool _hasPick;
+    [SerializeField] private int _pickCost = 200;
     [SerializeField] private bool _hasHorseFeed;
     [Header("Transport:")]
 
@@ -37,8 +39,10 @@ public class GameManager : MonoBehaviour
     //Ints of the amount of things the player has
     [SerializeField][Range(0f, 4f)] private int _wheelsCollected;
     [SerializeField][Range(0f, 4f)] private int _wheelsInInv;
-    [SerializeField][Range(0f, 4f)] private int _drillsUnlockedOil;
     [SerializeField][Range(0f, 4f)] private int _drillsUnlockedGold;
+    [SerializeField] private int goldDrillCost = 600;
+    [SerializeField][Range(0f, 4f)] private int _drillsUnlockedOil;
+    [SerializeField] private int oilDrillCost = 400;
     [SerializeField] private int _coal;
     [SerializeField] private int _oil;
     [SerializeField] private int _gold;
@@ -55,8 +59,8 @@ public class GameManager : MonoBehaviour
         //Updating UI for Gold Amount
         if (goldAmtText != null)
         {
-            goldAmtText.text = "Gold: " + _gold.ToString();
-        } else  Debug.LogWarning("Gold Amount Text is not assigned in the inspector!");
+            goldAmtText.text = "Money: " + _gold.ToString();
+        } else  Debug.LogWarning("Money Amount Text is not assigned in the inspector!");
 
         //Collecting For Drills
         if (!coolingDownDrillGold && _drillsUnlockedGold > 0)
@@ -107,6 +111,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Purchase()
+    {
+        //Purchasing Box
+        if (!_hasSluiceBox && _gold >= _sluiceBoxCost)
+        {
+            _gold -= _sluiceBoxCost;
+            _hasSluiceBox = true;
+        }
+        //Purchasing Pick
+        if (!_hasPick && _gold >= _pickCost)
+        {
+            _gold -= _pickCost;
+            _hasPick = true;
+        }
+        //Purchasing 
+    }
     public void Collecting(CollectionData data)
     {
         if (!coolingDown && _hasPan && data.type == CollectionData.TypeEnum.Dust)
