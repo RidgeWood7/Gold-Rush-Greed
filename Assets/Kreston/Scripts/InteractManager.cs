@@ -26,7 +26,7 @@ public class InteractManager : MonoBehaviour
     {
         _interactCollider.radius = _interactRange;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.E))
         {
             if (_nearbyDialogue)
                 onInteractDialogue.Invoke();

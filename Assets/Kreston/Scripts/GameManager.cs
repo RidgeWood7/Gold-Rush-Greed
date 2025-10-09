@@ -1,17 +1,21 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     private bool coolingDown = false;
     private bool coolingDownDrillGold = false;
     private bool coolingDownDrillOil = false;
+    public TMPro.TMP_Text goldAmtText;
 
     [Header("Inventory:")]
     //Inventory Bools For if the player has an item or not
     [SerializeField] private bool _hasPan;
     [SerializeField] private bool _hasSluiceBox;
+    [SerializeField] private int _sluiceBoxCost = 50;
     [SerializeField] private bool _hasPick;
+    [SerializeField] private int _pickCost = 200;
     [SerializeField] private bool _hasHorseFeed;
     [Header("Transport:")]
 
@@ -35,20 +39,29 @@ public class GameManager : MonoBehaviour
     //Ints of the amount of things the player has
     [SerializeField][Range(0f, 4f)] private int _wheelsCollected;
     [SerializeField][Range(0f, 4f)] private int _wheelsInInv;
-    [SerializeField][Range(0f, 4f)] private int _drillsUnlockedOil;
     [SerializeField][Range(0f, 4f)] private int _drillsUnlockedGold;
+    [SerializeField] private int goldDrillCost = 600;
+    [SerializeField][Range(0f, 4f)] private int _drillsUnlockedOil;
+    [SerializeField] private int oilDrillCost = 400;
     [SerializeField] private int _coal;
     [SerializeField] private int _oil;
     [SerializeField] private int _gold;
     [Header("Multipliers:")]
     [SerializeField] private int _multDust = 1;
     [SerializeField] private int _multIngot = 5;
+    [SerializeField] private int _multCoal = 5;
     [SerializeField] private int _multDrilledOil = 10;
     [SerializeField] private int _multDrilledGold = 50;
     public int weight;
 
     private void Update()
     {
+        //Updating UI for Gold Amount
+        if (goldAmtText != null)
+        {
+            goldAmtText.text = "Money: " + _gold.ToString();
+        } else  Debug.LogWarning("Money Amount Text is not assigned in the inspector!");
+
         //Collecting For Drills
         if (!coolingDownDrillGold && _drillsUnlockedGold > 0)
         {
@@ -60,7 +73,6 @@ public class GameManager : MonoBehaviour
         if (!coolingDownDrillOil && _drillsUnlockedOil > 0)
         {
             _oil += _drillsUnlockedOil * _multDrilledOil;
-            weight++;
 
             StartCoroutine(CooldownDrillOil());
         }
@@ -99,6 +111,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Purchase()
+    {
+        //Purchasing Box
+        if (!_hasSluiceBox && _gold >= _sluiceBoxCost)
+        {
+            _gold -= _sluiceBoxCost;
+            _hasSluiceBox = true;
+        }
+        //Purchasing Pick
+        if (!_hasPick && _gold >= _pickCost)
+        {
+            _gold -= _pickCost;
+            _hasPick = true;
+        }
+        //Purchasing 
+    }
     public void Collecting(CollectionData data)
     {
         if (!coolingDown && _hasPan && data.type == CollectionData.TypeEnum.Dust)
@@ -118,8 +146,55 @@ public class GameManager : MonoBehaviour
             weight += data.weightAdding * _multIngot;
             _gold += _multIngot;
             StartCoroutine(Cooldown());
+        }else if (!coolingDown && _hasPick && data.type == CollectionData.TypeEnum.Coal)
+        {
+            weight += data.weightAdding * _multCoal;
+            _gold += _multCoal;
+            StartCoroutine(Cooldown());
         }
     }
+    public void AddWheel()
+    {
+        if (_wheelsInInv < 4)
+        {
+            _wheelsInInv++;
+        }
+    }
+    public void UseWheel()
+    {
+        if (_wheelsInInv > 0)
+        {
+            _wheelsInInv--;
+            _wheelsCollected++;
+        }
+    }
+    public void UnlockDrillOil()
+    {
+        if (_wheelsCollected > 0 && _drillsUnlockedOil < 4)
+        {
+            _drillsUnlockedOil++;
+        }
+    }
+    public void UnlockDrillGold()
+    {
+        if (_wheelsCollected > 0 && _drillsUnlockedGold < 4)
+        {
+            _drillsUnlockedGold++;
+        }
+    }
+    public void UnlockRiver()
+    {
+        _unlockedRiver = true;
+    }
+    public void UnlockMines()
+    {
+        _unlockedMines = true;
+    }
+    public void UnlockFields()
+    {
+        _unlockedFields = true;
+    }
+
 
     IEnumerator Cooldown()
     {
