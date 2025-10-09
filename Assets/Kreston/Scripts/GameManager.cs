@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     private bool coolingDown = false;
     private bool coolingDownDrillGold = false;
     private bool coolingDownDrillOil = false;
+    public Text goldAmtText;
 
     [Header("Inventory:")]
     //Inventory Bools For if the player has an item or not
@@ -49,6 +51,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //Updating UI for Gold Amount
+        if (goldAmtText != null)
+        {
+            goldAmtText.text = "Gold: " + _gold.ToString();
+        } else  Debug.LogWarning("Gold Amount Text is not assigned in the inspector!");
+
         //Collecting For Drills
         if (!coolingDownDrillGold && _drillsUnlockedGold > 0)
         {
