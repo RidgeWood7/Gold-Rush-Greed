@@ -34,7 +34,7 @@ public class InteractManager : MonoBehaviour
                 collectDust.Invoke();
             else if (_nearbyCollectableIngot)
                 collectIngot.Invoke();
-            else if (_nearbyPurchaseable) //will need one for each purchaseable item
+            else if (_nearbyPurchaseable)
                 onInteractPurchaseable.Invoke();
         }
     }
