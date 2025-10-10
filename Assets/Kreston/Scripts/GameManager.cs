@@ -8,6 +8,11 @@ public class GameManager : MonoBehaviour
     private bool coolingDownDrillGold = false;
     private bool coolingDownDrillOil = false;
     public TMPro.TMP_Text goldAmtText;
+    public Canvas storeCanvas;
+    public Button ownBox;
+    public Button ownPick;
+    public Button ownGoldDrill;
+    public Button ownOilDrill;
 
     [Header("Inventory:")]
     //Inventory Bools For if the player has an item or not
@@ -46,6 +51,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _coal;
     [SerializeField] private int _oil;
     [SerializeField] private int _gold;
+    [SerializeField] private int _money;
     [Header("Multipliers:")]
     [SerializeField] private int _multDust = 1;
     [SerializeField] private int _multIngot = 5;
@@ -56,6 +62,20 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //Updating UI for Store
+        if (_hasSluiceBox)
+            ownBox.interactable = false;
+        if (_hasPick)
+            ownPick.interactable = false;
+        if (_drillsUnlockedGold == 4)
+            ownGoldDrill.interactable = false;
+        if (_drillsUnlockedOil == 4)
+            ownOilDrill.interactable = false;
+        //updating UI for Prices
+        ownBox.GetComponentInChildren<TMPro.TMP_Text>().text = "Sluice Box: " + _sluiceBoxCost.ToString();
+        ownPick.GetComponentInChildren<TMPro.TMP_Text>().text = "Pick: " + _pickCost.ToString();
+        ownGoldDrill.GetComponentInChildren<TMPro.TMP_Text>().text = "Gold Drill: " + goldDrillCost.ToString();
+        ownOilDrill.GetComponentInChildren<TMPro.TMP_Text>().text = "Oil Drill: " + oilDrillCost.ToString();
         //Updating UI for Gold Amount
         if (goldAmtText != null)
         {
@@ -111,21 +131,47 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Purchase()
+    public void OpenStore()
     {
-        //Purchasing Box
+        storeCanvas.gameObject.SetActive(true);
+    }
+    public void CloseStore()
+    {
+        storeCanvas.gameObject.SetActive(false);
+    }
+    public void PurchaseBox()
+    {
         if (!_hasSluiceBox && _gold >= _sluiceBoxCost)
         {
             _gold -= _sluiceBoxCost;
             _hasSluiceBox = true;
         }
-        //Purchasing Pick
+    }
+    public void PurchasePick()
+    {
         if (!_hasPick && _gold >= _pickCost)
         {
             _gold -= _pickCost;
             _hasPick = true;
         }
-        //Purchasing 
+    }
+    public void PurchaseGoldDrill()
+    {
+        if (_drillsUnlockedGold < 4 && _gold >= goldDrillCost)
+        {
+            _gold -= goldDrillCost;
+            _drillsUnlockedGold++;
+            goldDrillCost += 100;
+        }
+    }
+    public void PurchaseOilDrill()
+    {
+        if (_drillsUnlockedOil < 4 && _gold >= oilDrillCost)
+        {
+            _gold -= oilDrillCost;
+            _drillsUnlockedOil++;
+            oilDrillCost += 100;
+        }
     }
     public void Collecting(CollectionData data)
     {

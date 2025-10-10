@@ -12,14 +12,12 @@ public class pauseScript : MonoBehaviour
 
     public List<string> toolTips;
 
-    private bool pauseOpened = true;
+    private bool pauseOpened = false;
 
     public Canvas pauseCanvas;
     public Canvas dialogueCanvas;
-    private float waitTime = 1f;
-    private float coolDown = 0;
+    public dialogueScript dialogueCanvasScript;
 
-    
 
 
 
@@ -28,33 +26,23 @@ public class pauseScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        dialogueCanvasScript = GameObject.Find("DialogueCanvas").transform.GetChild(0).GetComponent<dialogueScript>();
+       
+        
         tipsText.text = toolTips[Random.Range(0, toolTips.Count)];
     }
 
     void Update()
     {
 
-        if (!pauseOpened)
-        {
-            coolDown += Time.deltaTime;
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("1");
             if (!pauseOpened)
             {
 
-                if (coolDown > 0.25f)
-                {
-                    coolDown = 0.0f;
-                    dialogueCanvas.gameObject.SetActive(false);
-                    Time.timeScale = 0f;
-                    Debug.Log("2");
-                    pauseOpened = true;
-                    tipsText.text = toolTips[Random.Range(0, toolTips.Count)];
-                    pauseCanvas.gameObject.SetActive(true);
-                }
+                dialogueCanvasScript.setText();
+                openPauseMenu();
+
             }
             else
             {
@@ -62,15 +50,22 @@ public class pauseScript : MonoBehaviour
             }
 
         }
+
     }
 
-
-   
+    private void openPauseMenu()
+    {
+        dialogueCanvas.gameObject.SetActive(false);
+        Time.timeScale = 0f;
+        pauseOpened = true;
+        tipsText.text = toolTips[Random.Range(0, toolTips.Count)];
+        pauseCanvas.gameObject.SetActive(true);
+    }
 
     public void closePauseMenu()
     {
         Time.timeScale = 1f;
-        Debug.Log("3");
+        
         pauseOpened = false;
         pauseCanvas.gameObject.SetActive(false);
         dialogueCanvas.gameObject.SetActive(true);
