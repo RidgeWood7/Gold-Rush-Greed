@@ -373,6 +373,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3319057581923448608, guid: ed8af6062ad7fcd41bea75506cd81360, type: 3}
+      propertyPath: m_TagString
+      value: DialogueBox
+      objectReference: {fileID: 0}
     - target: {fileID: 4282762837685444828, guid: ed8af6062ad7fcd41bea75506cd81360, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1606,6 +1610,7 @@ MonoBehaviour:
   - Bandits help carry gold for you.
   pauseCanvas: {fileID: 1702174484}
   dialogueCanvas: {fileID: 1343446819}
+  dialogueCanvasScript: {fileID: 0}
 --- !u!4 &1534353499
 Transform:
   m_ObjectHideFlags: 0

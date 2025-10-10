@@ -39,10 +39,6 @@ public class dialogueScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && dialogueBoxOpen)
-        {
-            dialogueText.text = currentLine;
-        }
 
 
 
@@ -67,6 +63,12 @@ public class dialogueScript : MonoBehaviour
     }
 
 
+
+
+    public void setText()
+    {
+        dialogueText.text = currentLine;
+    }
 
     public void StartDialogue(dialogue newDialogue)
     {
@@ -98,10 +100,12 @@ public class dialogueScript : MonoBehaviour
 
         isDialogueRunning = true;
         for (int i = 0; i < dialogue.dialogue.Length; i++)
-        {   
-            
-            dialogueText.text += dialogue.dialogue[i];                
-            yield return new WaitForSeconds(textSpeed);
+        {
+            if (1+1 ==2) 
+            { 
+                dialogueText.text += dialogue.dialogue[i];
+                yield return new WaitForSeconds(textSpeed);
+            }
         }
         
         isDialogueRunning = false;
