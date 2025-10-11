@@ -20,37 +20,53 @@ public class Animations : MonoBehaviour
     {
         movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        if(movementDirection.x > 0)
+        if(movementDirection.x > 0) //right
         {
-            animator.SetBool("isWlkingRight", true);
+            animator.SetBool("isIdle", false);
+            animator.SetBool("isWalkingRight", true);
             animator.SetBool("isWalkingLeft", false);
+            animator.SetBool("isWalkingDown", false);
+            animator.SetBool("isWalkingUp", false);
         }
-        else if (movementDirection.x < 0)
+        else if (movementDirection.x < 0) //left
         {
+            animator.SetBool("isIdle", false);
             animator.SetBool("isWalkingLeft", true);
-            animator.SetBool("isWlkingRight", false);
+            animator.SetBool("isWalkingRight", false);
+            animator.SetBool("isWalkingDown", false);
+            animator.SetBool("isWalkingUp", false);
         }
 
-        if (movementDirection.y > 0)
+        if (movementDirection.y > 0) //up
         {
+            animator.SetBool("isIdle", false);
             animator.SetBool("isWalkingUp", true);
             animator.SetBool("isWalkingDown", false);
+            animator.SetBool("isWalkingRight", false);
+            animator.SetBool("isWalkingLeft", false);
         }
-        else if(movementDirection.y < 0)
+        else if(movementDirection.y < 0) //down
         {
+            animator.SetBool("isIdle", false);
             animator.SetBool("isWalkingDown", true);
             animator.SetBool("isWalkingUp", false);
+            animator.SetBool("isWalkingRight", false);
+            animator.SetBool("isWalkingLeft", false);
         }
 
         if(movementDirection.x == 0)
         {
             animator.SetBool("isIdle", true);
-            animator.SetBool("isWlkingRight", false);
+            animator.SetBool("isWalkingRight", false);
             animator.SetBool("isWalkingLeft", false);
+            animator.SetBool("isWalkingDown", false);
+            animator.SetBool("isWalkingUp", false);
         }
         if(movementDirection.y == 0)
         {
             animator.SetBool("isIdle", true);
+            animator.SetBool("isWalkingRight", false);
+            animator.SetBool("isWalkingLeft", false);
             animator.SetBool("isWalkingUp", false);
             animator.SetBool("isWalkingDown", false);
         }
