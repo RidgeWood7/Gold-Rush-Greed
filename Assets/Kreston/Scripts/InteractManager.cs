@@ -26,7 +26,7 @@ public class InteractManager : MonoBehaviour
     {
         _interactCollider.radius = _interactRange;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.E))
         {
             if (_nearbyDialogue)
                 onInteractDialogue.Invoke();
@@ -34,7 +34,7 @@ public class InteractManager : MonoBehaviour
                 collectDust.Invoke();
             else if (_nearbyCollectableIngot)
                 collectIngot.Invoke();
-            else if (_nearbyPurchaseable) //will need one for each purchaseable item
+            else if (_nearbyPurchaseable)
                 onInteractPurchaseable.Invoke();
         }
     }

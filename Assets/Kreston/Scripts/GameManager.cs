@@ -8,12 +8,19 @@ public class GameManager : MonoBehaviour
     private bool coolingDownDrillGold = false;
     private bool coolingDownDrillOil = false;
     public TMPro.TMP_Text goldAmtText;
+    public Canvas storeCanvas;
+    public Button ownBox;
+    public Button ownPick;
+    public Button ownGoldDrill;
+    public Button ownOilDrill;
 
     [Header("Inventory:")]
     //Inventory Bools For if the player has an item or not
     [SerializeField] private bool _hasPan;
     [SerializeField] private bool _hasSluiceBox;
+    [SerializeField] private int _sluiceBoxCost = 50;
     [SerializeField] private bool _hasPick;
+    [SerializeField] private int _pickCost = 200;
     [SerializeField] private bool _hasHorseFeed;
     [Header("Transport:")]
 
@@ -37,11 +44,14 @@ public class GameManager : MonoBehaviour
     //Ints of the amount of things the player has
     [SerializeField][Range(0f, 4f)] private int _wheelsCollected;
     [SerializeField][Range(0f, 4f)] private int _wheelsInInv;
-    [SerializeField][Range(0f, 4f)] private int _drillsUnlockedOil;
     [SerializeField][Range(0f, 4f)] private int _drillsUnlockedGold;
+    [SerializeField] private int goldDrillCost = 600;
+    [SerializeField][Range(0f, 4f)] private int _drillsUnlockedOil;
+    [SerializeField] private int oilDrillCost = 400;
     [SerializeField] private int _coal;
     [SerializeField] private int _oil;
     [SerializeField] private int _gold;
+    [SerializeField] private int _money;
     [Header("Multipliers:")]
     [SerializeField] private int _multDust = 1;
     [SerializeField] private int _multIngot = 5;
@@ -52,11 +62,25 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //Updating UI for Store
+        if (_hasSluiceBox)
+            ownBox.interactable = false;
+        if (_hasPick)
+            ownPick.interactable = false;
+        if (_drillsUnlockedGold == 4)
+            ownGoldDrill.interactable = false;
+        if (_drillsUnlockedOil == 4)
+            ownOilDrill.interactable = false;
+        //updating UI for Prices
+        ownBox.GetComponentInChildren<TMPro.TMP_Text>().text = "Sluice Box: " + _sluiceBoxCost.ToString();
+        ownPick.GetComponentInChildren<TMPro.TMP_Text>().text = "Pick: " + _pickCost.ToString();
+        ownGoldDrill.GetComponentInChildren<TMPro.TMP_Text>().text = "Gold Drill: " + goldDrillCost.ToString();
+        ownOilDrill.GetComponentInChildren<TMPro.TMP_Text>().text = "Oil Drill: " + oilDrillCost.ToString();
         //Updating UI for Gold Amount
         if (goldAmtText != null)
         {
-            goldAmtText.text = "Gold: " + _gold.ToString();
-        } else  Debug.LogWarning("Gold Amount Text is not assigned in the inspector!");
+            goldAmtText.text = "Money: " + _gold.ToString();
+        } else  Debug.LogWarning("Money Amount Text is not assigned in the inspector!");
 
         //Collecting For Drills
         if (!coolingDownDrillGold && _drillsUnlockedGold > 0)
@@ -107,6 +131,48 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OpenStore()
+    {
+        storeCanvas.gameObject.SetActive(true);
+    }
+    public void CloseStore()
+    {
+        storeCanvas.gameObject.SetActive(false);
+    }
+    public void PurchaseBox()
+    {
+        if (!_hasSluiceBox && _gold >= _sluiceBoxCost)
+        {
+            _gold -= _sluiceBoxCost;
+            _hasSluiceBox = true;
+        }
+    }
+    public void PurchasePick()
+    {
+        if (!_hasPick && _gold >= _pickCost)
+        {
+            _gold -= _pickCost;
+            _hasPick = true;
+        }
+    }
+    public void PurchaseGoldDrill()
+    {
+        if (_drillsUnlockedGold < 4 && _gold >= goldDrillCost)
+        {
+            _gold -= goldDrillCost;
+            _drillsUnlockedGold++;
+            goldDrillCost += 100;
+        }
+    }
+    public void PurchaseOilDrill()
+    {
+        if (_drillsUnlockedOil < 4 && _gold >= oilDrillCost)
+        {
+            _gold -= oilDrillCost;
+            _drillsUnlockedOil++;
+            oilDrillCost += 100;
+        }
+    }
     public void Collecting(CollectionData data)
     {
         if (!coolingDown && _hasPan && data.type == CollectionData.TypeEnum.Dust)
