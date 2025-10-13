@@ -10,7 +10,6 @@ public class defenseManager : MonoBehaviour
     private Vector2 movementDirection;
     private Rigidbody2D rb2d;
     private float playerMovementSpeed = 4.0f;
-    private int gold = 0;
     public GameObject bandit;
     private float spawnTime = 0.74f;
     private float spawnCD = 0;
@@ -25,6 +24,7 @@ public class defenseManager : MonoBehaviour
     void Update()
     {
 
+        //Sets a cooldown, limiting how often they spawn
         if (spawnCD < spawnTime)
         {
             spawnCD += Time.deltaTime;
@@ -34,7 +34,8 @@ public class defenseManager : MonoBehaviour
             spawnBandit();
         }
 
-            movementDirection = new Vector2(Input.GetAxis("Horizontal"), 0);
+        //Player movement
+        movementDirection = new Vector2(Input.GetAxis("Horizontal"), 0);
         rb2d.linearVelocity = movementDirection * playerMovementSpeed;
         
         
@@ -44,8 +45,9 @@ public class defenseManager : MonoBehaviour
 
     private void spawnBandit()
     {
+        //Resets Cooldown, Sets new time till a bandit spawns, and then spawns the bandit (the specific values have 0 meaning besides the fact its off screen)
         spawnCD = 0f;
-        spawnTime = Mathf.Clamp(Random.Range(1.0f, 1.5f), 0.5f, 1.5f);
+        spawnTime = Random.Range(1.0f, 1.5f);
         Instantiate(bandit, new Vector3(-100.0f, 7.0f, 0.0f), Quaternion.identity);
     }
 
