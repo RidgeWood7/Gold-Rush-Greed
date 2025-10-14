@@ -11,6 +11,8 @@ public class banditScript : MonoBehaviour
     private defenseManager defenseScript;
     private float spawnLocation = 0.0f;
 
+    [SerializeField] private ParticleSystem banditBleed;
+
     //Checks if moving
     private bool moving = true;
 
@@ -58,15 +60,14 @@ public class banditScript : MonoBehaviour
         //Bandit hits the gold pile
         if (collision.CompareTag("Hitbox"))
         {
-            removeGold.Invoke();   
-            Destroy(gameObject);
+            deathAnimation("Hitbox");
 
         }
 
         //Bandit hits the Player
         else if (collision.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            deathAnimation("Player");
         }
         
     }
@@ -97,6 +98,27 @@ public class banditScript : MonoBehaviour
         return new Vector3(spawnLocation, 7, 0);
     }
 
+    private void deathAnimation(string cause)
+    {
+        //Checks whether it hit player or goldpile
+        if (cause == "Player")
+        {
+
+            //Plays Particles, and then kills it self 
+            banditBleed.Play();
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            moving = false;
+
+            Destroy(gameObject, 1);
+        }
+        else
+        {
+            //Unity Event for removing gold then kills it self
+            removeGold.Invoke();
+
+            Destroy(gameObject);
+        }
+    }
 
 
 

@@ -68,6 +68,7 @@ public class dialogueScript : MonoBehaviour
     public void setText()
     {
         dialogueText.text = currentLine;
+        isDialogueRunning = false;
     }
 
     

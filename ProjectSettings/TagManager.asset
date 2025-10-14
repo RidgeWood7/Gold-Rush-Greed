@@ -6,10 +6,14 @@ TagManager:
   tags:
   - Hitbox
   - Dialogue
-  - Purchaseable
   - CollectableDust
   - CollectableIngot
+  - CollectableCoal
   - DefenseManager
+  - CollectableWheel
+  - CollectableFeed
+  - Store
+  - LandStore
   layers:
   - Default
   - TransparentFX
