@@ -4,24 +4,28 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    #region
     private bool coolingDown = false;
     private bool coolingDownDrillGold = false;
     private bool coolingDownDrillOil = false;
     public TMPro.TMP_Text goldAmtText;
     public TMPro.TMP_Text goldDrillCount;
     public TMPro.TMP_Text oilDrillCount;
+    public TMPro.TMP_Text goldText;
+    public TMPro.TMP_Text coalText;
+    public TMPro.TMP_Text oilText;
+    public TMPro.TMP_Text weightText;
     public Canvas storeCanvas;
     public Button ownBox;
     public Button ownPick;
     public Button ownGoldDrill;
     public Button ownOilDrill;
+    public Image collectedPan;
     public Image collectedBox;
     public Image collectedPick;
     public Image collectedGoldDrill;
     public Image collectedOilDrill;
-    public Image goldIcon;
-    public Image coalIcon;
-    public Image oilIcon;
+    #endregion
 
     [Header("Inventory:")]
     //Inventory Bools For if the player has an item or not
@@ -74,10 +78,37 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _MinesCost = 300;
     [SerializeField] private int _FieldsCost = 500;
 
+    //Equiped Items
+    [SerializeField] private bool _equippedPan;
+    [SerializeField] private bool _equippedBox;
+    [SerializeField] private bool _equippedPick;
+    public void ClickPan()
+    {
+        _equippedPan = !_equippedPan;
+        _equippedPan = false;
+        _equippedPick = false;
+    }
+    public void ClickBox()
+    {
+        _equippedBox = !_equippedBox;
+        _equippedPan = false;
+        _equippedPick = false;
+    }
+    public void ClickPick()
+    {
+        _equippedPick = !_equippedPick;
+        _equippedPan = false;
+        _equippedBox = false;
+    }
+
 
     private void Update()
     {
         //Updating UI for Store
+        if (_hasPan)
+        {
+            collectedPan.enabled = true;
+        }
         if (_hasSluiceBox)
         {
             ownBox.interactable = false;
@@ -105,11 +136,20 @@ public class GameManager : MonoBehaviour
         ownGoldDrill.GetComponentInChildren<TMPro.TMP_Text>().text = "Gold Drill: " + _goldDrillCost.ToString();
         ownOilDrill.GetComponentInChildren<TMPro.TMP_Text>().text = "Oil Drill: " + _oilDrillCost.ToString();
 
-        //Updating UI for Drill Amounts
+        //Updating UI for Amounts
         if (goldDrillCount != null)
             goldDrillCount.text = _drillsUnlockedGold.ToString();
         if (oilDrillCount != null)
             oilDrillCount.text = _drillsUnlockedOil.ToString();
+        if (goldText != null)
+            goldText.text = "Gold: " + _gold.ToString();
+        if (coalText != null)
+            coalText.text = "Coal: " + _coal.ToString();
+        if (oilText != null)
+            oilText.text = "Oil: " + _oil.ToString();
+        if (weightText != null)
+            weightText.text = "Weight: " + weight.ToString() + "/" + maxWeight.ToString();
+
 
         //Updating UI for Gold Amount
         if (goldAmtText != null)
@@ -119,10 +159,10 @@ public class GameManager : MonoBehaviour
         else Debug.LogWarning("Money Amount Text is not assigned in the inspector!");
 
         //Collecting For Drills
-        if (!coolingDownDrillGold && _drillsUnlockedGold > 0 && weight < maxWeight)
+        if (!coolingDownDrillGold && _drillsUnlockedGold > 0 && weight < maxWeight + 5)
         {
             _gold += _drillsUnlockedGold * _multDrilledGold;
-            weight++;
+            weight += 5;
 
             StartCoroutine(CooldownDrillGold());
         }

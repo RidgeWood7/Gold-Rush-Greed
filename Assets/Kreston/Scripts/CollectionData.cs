@@ -10,5 +10,4 @@ public class CollectionData : ScriptableObject
         Coal
     }
     public TypeEnum type;
-    public int weightAdding;
 }

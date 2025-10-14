@@ -70,6 +70,7 @@ public class dialogueScript : MonoBehaviour
         dialogueText.text = currentLine;
     }
 
+    
     public void StartDialogue(dialogue newDialogue)
     {
         currentDialogue = newDialogue;
