@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -57,17 +58,17 @@ public class GameManager : MonoBehaviour
     //Ints of the amount of things the player has
     [SerializeField][Range(0f, 4f)] private int _wheelsCollected;
     [SerializeField][Range(0f, 4f)] private int _drillsUnlockedGold;
-    [SerializeField][Range(0f, 4f)] private int _drillsUnlockedOil;
+    [SerializeField] private bool _drillsUnlockedOil;
     [SerializeField] private int _coal;
     [SerializeField] private int _oil;
-    [SerializeField] private int _gold;
-    [SerializeField] private static int _money;
     [Header("Multipliers:")]
     [SerializeField] private int _multDust = 1;
     [SerializeField] private int _multIngot = 5;
     [SerializeField] private int _multCoal = 5;
     [SerializeField] private int _multDrilledOil = 10;
     [SerializeField] private int _multDrilledGold = 50;
+    public static int _gold;
+    public static int _money;
     public static int weight;
     public static int maxWeight = 100;
 
@@ -84,23 +85,31 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool _equippedPick;
     public void ClickPan()
     {
-        _equippedPan = !_equippedPan;
-        _equippedPan = false;
-        _equippedPick = false;
+        if (_hasPan)
+        {
+            _equippedPan = !_equippedPan;
+            _equippedBox = false;
+            _equippedPick = false;
+        }
     }
     public void ClickBox()
     {
-        _equippedBox = !_equippedBox;
-        _equippedPan = false;
-        _equippedPick = false;
+        if (_hasSluiceBox)
+        {
+            _equippedBox = !_equippedBox;
+            _equippedPan = false;
+            _equippedPick = false;
+        }
     }
     public void ClickPick()
     {
-        _equippedPick = !_equippedPick;
-        _equippedPan = false;
-        _equippedBox = false;
+        if (_hasPick)
+        {
+            _equippedPick = !_equippedPick;
+            _equippedPan = false;
+            _equippedBox = false;
+        }
     }
-
 
     private void Update()
     {
@@ -124,7 +133,7 @@ public class GameManager : MonoBehaviour
             ownGoldDrill.interactable = false;
             collectedGoldDrill.enabled = true;
         }
-        if (_drillsUnlockedOil == 4)
+        if (_drillsUnlockedOil)
         {
             ownOilDrill.interactable = false;
             collectedOilDrill.enabled = true;
@@ -139,8 +148,6 @@ public class GameManager : MonoBehaviour
         //Updating UI for Amounts
         if (goldDrillCount != null)
             goldDrillCount.text = _drillsUnlockedGold.ToString();
-        if (oilDrillCount != null)
-            oilDrillCount.text = _drillsUnlockedOil.ToString();
         if (goldText != null)
             goldText.text = "Gold: " + _gold.ToString();
         if (coalText != null)
@@ -159,18 +166,12 @@ public class GameManager : MonoBehaviour
         else Debug.LogWarning("Money Amount Text is not assigned in the inspector!");
 
         //Collecting For Drills
-        if (!coolingDownDrillGold && _drillsUnlockedGold > 0 && weight < maxWeight + 5)
+        if (!coolingDownDrillGold && _drillsUnlockedGold > 0 && weight < maxWeight - 5)
         {
             _gold += _drillsUnlockedGold * _multDrilledGold;
             weight += 5;
 
             StartCoroutine(CooldownDrillGold());
-        }
-        if (!coolingDownDrillOil && _drillsUnlockedOil > 0)
-        {
-            _oil += _drillsUnlockedOil * _multDrilledOil;
-
-            StartCoroutine(CooldownDrillOil());
         }
 
         //River
@@ -203,7 +204,10 @@ public class GameManager : MonoBehaviour
             _colliderFields.enabled = true;
         }
     }
+    public void RemoveGold()
+    {
 
+    }
     public void OpenStore()
     {
         storeCanvas.gameObject.SetActive(true);
@@ -239,20 +243,20 @@ public class GameManager : MonoBehaviour
     }
     public void PurchaseOilDrill()
     {
-        if (_drillsUnlockedOil < 4 && _money >= _oilDrillCost && _unlockedFields)
+        if (!_drillsUnlockedOil && _money >= _oilDrillCost && _unlockedFields)
         {
             _money -= _oilDrillCost;
-            _drillsUnlockedOil++;
+            _drillsUnlockedOil = true;
             _oilDrillCost += 100;
         }
     }
     public void Collecting(CollectionData data)
     {
-        if (!coolingDown && _hasPan && data.type == CollectionData.TypeEnum.Dust && weight < maxWeight)
+        if (!coolingDown && _hasPan && data.type == CollectionData.TypeEnum.Dust && weight < maxWeight && _equippedPan)
         {
             weight ++;
             _gold += _multDust;
-            if (_hasSluiceBox)
+            if (_hasSluiceBox && _equippedBox)
             {
                 _gold += 2;
                 weight += 2;
@@ -260,12 +264,12 @@ public class GameManager : MonoBehaviour
 
             StartCoroutine(Cooldown());
         }
-        if (!coolingDown && _hasPick && data.type == CollectionData.TypeEnum.Ingot && weight < maxWeight)
+        if (!coolingDown && _hasPick && data.type == CollectionData.TypeEnum.Ingot && weight < maxWeight && _equippedBox)
         {
             weight++;
             _gold += _multIngot;
             StartCoroutine(Cooldown());
-        }else if (!coolingDown && _hasPick && data.type == CollectionData.TypeEnum.Coal && weight < maxWeight)
+        }else if (!coolingDown && _hasPick && data.type == CollectionData.TypeEnum.Coal && weight < maxWeight && _equippedPick)
         {
             weight++;
             _coal += _multCoal;
@@ -277,6 +281,15 @@ public class GameManager : MonoBehaviour
         if (_wheelsCollected < 4)
         {
             _wheelsCollected++;
+        }
+    }
+    public UnityEvent onCollectFeed;
+    public void CollectFeed()
+    {
+        if (!_hasHorseFeed)
+        {
+            _hasHorseFeed = true;
+            onCollectFeed.Invoke();
         }
     }
     public void UnlockRiver()
@@ -317,7 +330,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(20f);
         coolingDownDrillOil = false;
     }
-
+    #region
     public void Cheats()
     {
         _hasPan = true;
@@ -326,4 +339,5 @@ public class GameManager : MonoBehaviour
         _unlockedMines = true;
         _unlockedFields = true;
     }
+    #endregion
 }
