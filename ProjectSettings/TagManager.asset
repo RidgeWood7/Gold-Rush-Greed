@@ -9,6 +9,7 @@ TagManager:
   - Purchaseable
   - CollectableDust
   - CollectableIngot
+  - DefenseManager
   layers:
   - Default
   - TransparentFX
