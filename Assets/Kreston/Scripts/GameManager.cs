@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     #region
     public UnityEvent startEvent;
+    public static bool hasStarted = false;
     private bool coolingDown = false;
     private bool coolingDownDrillGold = false;
     private bool coolingDownDrillOil = false;
@@ -88,7 +89,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool _equippedBox;
     [SerializeField] private bool _equippedPick;
 
-    private void Start() => startEvent.Invoke();
+    private void Start()
+    {
+        if (!hasStarted)
+        {
+            _gold = 0;
+            _money = 40;
+            _hasPan = true;
+            hasStarted = true;
+            startEvent.Invoke();
+        }
+    }
     public void ClickPan()
     {
         if (_hasPan)
@@ -216,14 +227,6 @@ public class GameManager : MonoBehaviour
     {
 
     }
-    public void OpenStore()
-    {
-        storeCanvas.gameObject.SetActive(true);
-    }
-    public void CloseStore()
-    {
-        storeCanvas.gameObject.SetActive(false);
-    }
     public void PurchaseBox()
     {
         if (!_hasSluiceBox && _money >= _sluiceBoxCost && _unlockedRiver)
@@ -262,7 +265,7 @@ public class GameManager : MonoBehaviour
     {
         if (!coolingDown && _hasPan && data.type == CollectionData.TypeEnum.Dust && weight < maxWeight && _equippedPan)
         {
-            weight ++;
+            weight++;
             _gold += _multDust;
 
             StartCoroutine(Cooldown());
