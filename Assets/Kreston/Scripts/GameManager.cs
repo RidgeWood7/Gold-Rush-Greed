@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     #region
+    public UnityEvent startEvent;
     private bool coolingDown = false;
     private bool coolingDownDrillGold = false;
     private bool coolingDownDrillOil = false;
@@ -86,6 +87,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool _equippedPan;
     [SerializeField] private bool _equippedBox;
     [SerializeField] private bool _equippedPick;
+
+    private void Start() => startEvent.Invoke();
     public void ClickPan()
     {
         if (_hasPan)
