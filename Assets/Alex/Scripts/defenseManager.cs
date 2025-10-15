@@ -28,16 +28,16 @@ public class defenseManager : MonoBehaviour
     //All used in monitoring how many bandits to spawn and left
     private int _banditsRemaining;
     private static int s_banditsPerRaid = 10;
-    private int _endScene;
+    public int _endScene;
 
 
     void Start()
     {
         //All used in monitoring how many bandits to spawn and left
-        _endScene = 0;   
+        _endScene = s_banditsPerRaid;   
         _banditsRemaining = s_banditsPerRaid;
         s_banditsPerRaid++;
-        Debug.Log("Bandits Remaining: " + _banditsRemaining.ToString() + "\nBandits Per Raid: " + s_banditsPerRaid.ToString() + "\nBandits Removed: " + _endScene.ToString());
+        Debug.Log("Bandits Remaining: " + _banditsRemaining.ToString() + "\nBandits Per Raid: " + s_banditsPerRaid.ToString());
 
         //Sets Player RB2D
         rb2d = defensePlayer.GetComponent<Rigidbody2D>();
@@ -78,7 +78,14 @@ public class defenseManager : MonoBehaviour
 
     private void transitionScene()
     {
+
+
         addMoney.Invoke();
+        
+        //This line toggles the defense parent 
+        //transform.parent.gameObject.SetActive(false);
+
+        //SWAP SCENES HERE 
     }
 
     private void spawnBandit()
