@@ -14,9 +14,7 @@ public class startScript : MonoBehaviour
 
     public void exitGame()
     {
-        Debug.Log("syk-otgkmd;o-=kmop");
         Application.Quit();
-        //Debug.Log("syk-otgkmd;o-=kmop");
     }
 
 

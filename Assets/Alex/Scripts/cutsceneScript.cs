@@ -63,18 +63,30 @@ public class cutsceneScript : MonoBehaviour
             //Has a loop that runs every frame till the alpha value of the text is basically the end value
             while (!Mathf.Approximately(alphaValue, alphaEndValue))
             {
+
+                //Checks if another loop should override current loop (this is hard coded should be changed)
                 if (_exitQueued && Mathf.Approximately(alphaEndValue, 1f))
                 {
                     yield break;
                 }
+
+                //fancy version of adding or subtracting to meet the end value
                 alphaValue = Mathf.MoveTowards(alphaValue, alphaEndValue, rate * Time.deltaTime);
+
+                //Changes the color of the specified text
                 text.color = new Color(originalColor.r, originalColor.g, originalColor.b, alphaValue);
+
+                //Makes it so the while loop runs next frame
                 yield return null;
             }
 
+            //Makes sure the value of alpha matches exactly 0 or 1
             text.color = new Color(originalColor.r, originalColor.g, originalColor.b, alphaEndValue);
 
         }
+
+
+        //Exact same as previous but for images, could probably be changed to just have the first if statement
         else if (obj is UnityEngine.UI.Image image)
         {
             Color originalColor = image.color;
@@ -93,6 +105,7 @@ public class cutsceneScript : MonoBehaviour
         }
         else
         {
+            //Object is not one of the first two
             Debug.LogWarning("Unspported object type to fade");
         }
     }
