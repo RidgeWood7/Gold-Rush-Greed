@@ -1,11 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     #region
+    public UnityEvent startEvent;
+    public static bool hasStarted = false;
     private bool coolingDown = false;
     private bool coolingDownDrillGold = false;
     private bool coolingDownDrillOil = false;
@@ -14,7 +17,6 @@ public class GameManager : MonoBehaviour
     public TMPro.TMP_Text oilDrillCount;
     public TMPro.TMP_Text goldText;
     public TMPro.TMP_Text coalText;
-    public TMPro.TMP_Text oilText;
     public TMPro.TMP_Text weightText;
     public Canvas storeCanvas;
     public Button ownBox;
@@ -24,6 +26,9 @@ public class GameManager : MonoBehaviour
     public Image collectedPan;
     public Image collectedBox;
     public Image collectedPick;
+    public Image selectedPan;
+    public Image selectedBox;
+    public Image selectedPick;
     public Image collectedGoldDrill;
     public Image collectedOilDrill;
     #endregion
@@ -46,14 +51,14 @@ public class GameManager : MonoBehaviour
     //bools for unlocked regions
     [Header("River")]
     [SerializeField] private bool _unlockedRiver;
-    public BoxCollider2D _colliderRiver;
+    public TilemapCollider2D _colliderRiver;
     [Header("Mines")]
     [SerializeField] private bool _unlockedMines;
-    public BoxCollider2D _colliderMines;
+    public TilemapCollider2D _colliderMines;
     [Header("Fields")]
     [SerializeField] private bool _unlockedFields;
-    public BoxCollider2D _colliderFields;
-    [Header("Ints:")]
+    public TilemapCollider2D _colliderFields;
+    [Header("Other:")]
 
     //Ints of the amount of things the player has
     [SerializeField][Range(0f, 4f)] private int _wheelsCollected;
@@ -83,6 +88,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool _equippedPan;
     [SerializeField] private bool _equippedBox;
     [SerializeField] private bool _equippedPick;
+
+    private void Start()
+    {
+        if (!hasStarted)
+        {
+            _gold = 0;
+            _money = 40;
+            _hasPan = true;
+            hasStarted = true;
+            startEvent.Invoke();
+        }
+    }
     public void ClickPan()
     {
         if (_hasPan)
@@ -113,11 +130,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //Updating UI for Store
+        //Updating UI for Inventory
+        selectedPan.enabled = _equippedPan == true ? true : false;
+        selectedBox.enabled = _equippedBox == true ? true : false;
+        selectedPick.enabled = _equippedPick == true ? true : false;
+
         if (_hasPan)
-        {
             collectedPan.enabled = true;
-        }
         if (_hasSluiceBox)
         {
             ownBox.interactable = false;
@@ -148,12 +167,12 @@ public class GameManager : MonoBehaviour
         //Updating UI for Amounts
         if (goldDrillCount != null)
             goldDrillCount.text = _drillsUnlockedGold.ToString();
+        if (oilDrillCount != null)
+            oilDrillCount.text = _drillsUnlockedOil ? "1" : "0";
         if (goldText != null)
             goldText.text = "Gold: " + _gold.ToString();
         if (coalText != null)
             coalText.text = "Coal: " + _coal.ToString();
-        if (oilText != null)
-            oilText.text = "Oil: " + _oil.ToString();
         if (weightText != null)
             weightText.text = "Weight: " + weight.ToString() + "/" + maxWeight.ToString();
 
@@ -185,7 +204,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Mines
-        if (_unlockedMines && _colliderRiver != null)
+        if (_unlockedMines && _colliderMines != null)
         {
             _colliderMines.enabled = false;
         }
@@ -207,14 +226,6 @@ public class GameManager : MonoBehaviour
     public void RemoveGold()
     {
 
-    }
-    public void OpenStore()
-    {
-        storeCanvas.gameObject.SetActive(true);
-    }
-    public void CloseStore()
-    {
-        storeCanvas.gameObject.SetActive(false);
     }
     public void PurchaseBox()
     {
@@ -254,22 +265,25 @@ public class GameManager : MonoBehaviour
     {
         if (!coolingDown && _hasPan && data.type == CollectionData.TypeEnum.Dust && weight < maxWeight && _equippedPan)
         {
-            weight ++;
+            weight++;
             _gold += _multDust;
-            if (_hasSluiceBox && _equippedBox)
-            {
-                _gold += 2;
-                weight += 2;
-            }
 
             StartCoroutine(Cooldown());
         }
-        if (!coolingDown && _hasPick && data.type == CollectionData.TypeEnum.Ingot && weight < maxWeight && _equippedBox)
+        else if (!coolingDown && _hasSluiceBox && data.type == CollectionData.TypeEnum.Dust && weight < maxWeight && _equippedBox)
+        {
+            weight += 3;
+            _gold += 3;
+
+            StartCoroutine(Cooldown());
+        }
+        if (!coolingDown && _hasPick && data.type == CollectionData.TypeEnum.Ingot && weight < maxWeight && _equippedPick)
         {
             weight++;
             _gold += _multIngot;
             StartCoroutine(Cooldown());
-        }else if (!coolingDown && _hasPick && data.type == CollectionData.TypeEnum.Coal && weight < maxWeight && _equippedPick)
+        }
+        else if (!coolingDown && _hasPick && data.type == CollectionData.TypeEnum.Coal && weight < maxWeight && _equippedPick)
         {
             weight++;
             _coal += _multCoal;

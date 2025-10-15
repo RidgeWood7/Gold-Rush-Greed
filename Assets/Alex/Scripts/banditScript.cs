@@ -109,13 +109,15 @@ public class banditScript : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             moving = false;
 
+            defenseScript._endScene--;
             Destroy(gameObject, 1);
+            //
         }
         else
         {
             //Unity Event for removing gold then kills it self
             removeGold.Invoke();
-
+            defenseScript._endScene--;
             Destroy(gameObject);
         }
     }

@@ -10,10 +10,16 @@ TagManager:
   - CollectableIngot
   - CollectableCoal
   - DefenseManager
-  - CollectableWheel
   - CollectableFeed
   - Store
   - LandStore
+  - DialogueBox
+  - Horse
+  - Stagecoach
+  - CollectableWheel1
+  - CollectableWheel2
+  - CollectableWheel3
+  - CollectableWheel4
   layers:
   - Default
   - TransparentFX

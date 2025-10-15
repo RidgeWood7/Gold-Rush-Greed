@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0668d88d404b2c489037092701f1e29, type: 3}
+  m_Name: start dialogue
+  m_EditorClassIdentifier: 
+  lines:
+  - name: Doug
+    dialogue: 'Man, I''m broke...
+
+
+      <Press Space to go to Next Text>
+
+      <Press
+      Q to close Dialogue>'
+    icon: {fileID: 0}
+  - name: Doug
+    dialogue: 'I remember finding a piece of gold one time, but I don''t know if
+      I can strike rich again...
+
+
+      <Press Space to go to Next Text>
+
+      <Press
+      Q to close Dialogue>'
+    icon: {fileID: 0}
+  - name: Doug
+    dialogue: 'Oh... I still have that pan I bought years ago!
+
+
+      <Press Space
+      to go to Next Text>
+
+      <Press Q to close Dialogue>'
+    icon: {fileID: 0}
+  - name: Doug
+    dialogue: 'I think it''s time I get rich and get out this town.
+
+
+      <Press
+      Space to go to Next Text>
+
+      <Press Q to close Dialogue>'
+    icon: {fileID: 0}
+  - name: Land Agent
+    dialogue: Hey! Sir!
+    icon: {fileID: 0}
+  - name: Land Agent
+    dialogue: Are you trying to get rich?
+    icon: {fileID: 0}
+  - name: Doug
+    dialogue: YES! Can you help me?
+    icon: {fileID: 0}
+  - name: Land Agent
+    dialogue: Yessir! I have a shop in this here town and I sell land for mining.
+      You could start by buying the river down southwest of here to pan for gold.
+      How much you got?
+    icon: {fileID: 0}
+  - name: Doug
+    dialogue: ummm... $40..
+    icon: {fileID: 0}
+  - name: Land Agent
+    dialogue: oh... wow...
+    icon: {fileID: 0}
+  - name: Land Agent
+    dialogue: I guess I could cut a deal with you, but you better keep buying from
+      me. I have to make a living too ya know.
+    icon: {fileID: 0}
+  - name: Doug
+    dialogue: Great! Thanks partner!
+    icon: {fileID: 0}
