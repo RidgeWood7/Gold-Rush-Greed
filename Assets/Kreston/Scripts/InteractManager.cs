@@ -20,6 +20,7 @@ public class InteractManager : MonoBehaviour
     public UnityEvent collectWheel3;
     public UnityEvent collectWheel4;
     public UnityEvent collectFeed;
+    public UnityEvent horse;
 
     [SerializeField] private float _interactRange;
     private CircleCollider2D _interactCollider;
@@ -34,6 +35,7 @@ public class InteractManager : MonoBehaviour
     private bool _nearbyCollectableFeed;
     private bool _nearbyStore;
     private bool _nearbyLandStore;
+    private bool _nearbyHorse;
 
     private void Awake() =>_interactCollider = GetComponent<CircleCollider2D>();
     private void Reset() => _interactCollider = GetComponent<CircleCollider2D>();
@@ -75,6 +77,8 @@ public class InteractManager : MonoBehaviour
                 onInteractStore.Invoke();
             else if (_nearbyLandStore)
                 onInteractLandStore.Invoke();
+            else if (_nearbyHorse)
+                onInteractLandStore.Invoke();
         }
     }
 
@@ -103,6 +107,8 @@ public class InteractManager : MonoBehaviour
             _nearbyStore = true;
         else if (collision.gameObject.CompareTag("LandStore"))
             _nearbyLandStore = true;
+        else if (collision.gameObject.CompareTag("Horse"))
+            _nearbyHorse = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -117,6 +123,7 @@ public class InteractManager : MonoBehaviour
         _nearbyCollectableFeed = false;
         _nearbyStore = false;
         _nearbyLandStore = false;
+        _nearbyHorse = false;
     }
 
     //Drawing the Gizmos

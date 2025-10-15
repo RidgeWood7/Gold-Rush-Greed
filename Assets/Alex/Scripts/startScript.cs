@@ -4,7 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class startScript : MonoBehaviour
 {
-   
+
+    [SerializeField] private AudioSource neighAudio;
+    [SerializeField] private AudioClip loud;
+    [SerializeField] private AudioClip notLoud;
+
 
     public void changeToMainScript()
     {
@@ -14,10 +18,24 @@ public class startScript : MonoBehaviour
 
     public void exitGame()
     {
-        Debug.Log("syk-otgkmd;o-=kmop");
         Application.Quit();
-        //Debug.Log("syk-otgkmd;o-=kmop");
     }
+
+
+    public void neigh()
+    {
+        if (Random.Range(0, 4) == 0)
+        {
+            neighAudio.clip = loud;
+        }
+        else
+        {
+            neighAudio.clip = notLoud;
+        }
+        neighAudio.Play();
+    }
+
+
 
 
 
