@@ -4,7 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class startScript : MonoBehaviour
 {
-   
+
+    [SerializeField] private AudioSource neighAudio;
+    [SerializeField] private AudioClip loud;
+    [SerializeField] private AudioClip notLoud;
+
 
     public void changeToMainScript()
     {
@@ -16,6 +20,22 @@ public class startScript : MonoBehaviour
     {
         Application.Quit();
     }
+
+
+    public void neigh()
+    {
+        if (Random.Range(0, 4) == 0)
+        {
+            neighAudio.clip = loud;
+        }
+        else
+        {
+            neighAudio.clip = notLoud;
+        }
+        neighAudio.Play();
+    }
+
+
 
 
 
