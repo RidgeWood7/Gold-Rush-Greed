@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 3
   tags:
   - Hitbox
-  - Dialogue
   - CollectableDust
   - CollectableIngot
   - CollectableCoal
@@ -20,6 +19,9 @@ TagManager:
   - CollectableWheel2
   - CollectableWheel3
   - CollectableWheel4
+  - Transport
+  - DialogueMO
+  - DialogueLA
   layers:
   - Default
   - TransparentFX
