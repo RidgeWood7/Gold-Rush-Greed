@@ -3083,7 +3083,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.56, y: -3.57, z: 0}
-  m_LocalScale: {x: 4.58, y: 3.53, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1216748666}
@@ -3132,7 +3132,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 678844264964660696, guid: 61da8af8d31a25c49819a75894e2cdf5, type: 3}
+  m_Sprite: {fileID: -4097876623041793717, guid: 2c9ae92bb8d699947960ca2eeb1f81b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3549,7 +3549,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.87, y: -3.78, z: 0}
-  m_LocalScale: {x: 4.58, y: 3.53, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1216748666}
@@ -3597,8 +3597,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 678844264964660696, guid: 61da8af8d31a25c49819a75894e2cdf5, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: -4097876623041793717, guid: 2c9ae92bb8d699947960ca2eeb1f81b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3917,46 +3917,9 @@ MonoBehaviour:
   goldDrill2: {fileID: 0}
   goldDrill3: {fileID: 0}
   goldDrill4: {fileID: 0}
-  _hasPan: 0
-  _hasSluiceBox: 0
-  _sluiceBoxCost: 50
-  _hasPick: 0
-  _pickCost: 200
-  _hasHorseFeed: 0
-  _hasHorse: 0
-  _hasStagecoach: 0
-  _hasTrain: 0
-  _usingTown: 0
-  _usingHorse: 0
-  _usingStagecoach: 0
-  _usingTrain: 0
-  _unlockedRiver: 0
   _colliderRiver: {fileID: 0}
-  _unlockedMines: 0
   _colliderMines: {fileID: 0}
-  _unlockedFields: 0
   _colliderFields: {fileID: 0}
-  _wheelsCollected1: 0
-  _wheelsCollected2: 0
-  _wheelsCollected3: 0
-  _wheelsCollected4: 0
-  _drillsUnlockedGold: 0
-  _drillsUnlockedOil: 0
-  _coal: 0
-  _oil: 0
-  _multDust: 1
-  _multIngot: 5
-  _multCoal: 5
-  _multDrilledOil: 10
-  _multDrilledGold: 50
-  _goldDrillCost: 600
-  _oilDrillCost: 400
-  _RiverCost: 40
-  _MinesCost: 300
-  _FieldsCost: 500
-  _equippedPan: 0
-  _equippedBox: 0
-  _equippedPick: 0
   onCollectFeed:
     m_PersistentCalls:
       m_Calls: []
@@ -4222,7 +4185,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.7, y: -3.59, z: 0}
-  m_LocalScale: {x: 4.58, y: 3.53, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1216748666}
@@ -4271,7 +4234,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 678844264964660696, guid: 61da8af8d31a25c49819a75894e2cdf5, type: 3}
+  m_Sprite: {fileID: -4097876623041793717, guid: 2c9ae92bb8d699947960ca2eeb1f81b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4826,8 +4789,8 @@ Transform:
   m_GameObject: {fileID: 1649148135}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.99, y: -4.34, z: 0}
-  m_LocalScale: {x: 4.58, y: 3.53, z: 1}
+  m_LocalPosition: {x: -1.4, y: -4.04, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1216748666}
@@ -4875,8 +4838,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 678844264964660696, guid: 61da8af8d31a25c49819a75894e2cdf5, type: 3}
+  m_SortingOrder: 4
+  m_Sprite: {fileID: -4097876623041793717, guid: 2c9ae92bb8d699947960ca2eeb1f81b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4914,7 +4877,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.74, y: -4.41, z: 0}
-  m_LocalScale: {x: 4.58, y: 3.53, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1216748666}
@@ -4962,8 +4925,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 678844264964660696, guid: 61da8af8d31a25c49819a75894e2cdf5, type: 3}
+  m_SortingOrder: 4
+  m_Sprite: {fileID: -4097876623041793717, guid: 2c9ae92bb8d699947960ca2eeb1f81b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5137,8 +5100,8 @@ Transform:
   m_GameObject: {fileID: 1959655816}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.05, y: -4.29, z: 0}
-  m_LocalScale: {x: 4.58, y: 3.53, z: 1}
+  m_LocalPosition: {x: -5.66, y: -4.12, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1216748666}
@@ -5186,8 +5149,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 678844264964660696, guid: 61da8af8d31a25c49819a75894e2cdf5, type: 3}
+  m_SortingOrder: 4
+  m_Sprite: {fileID: -4097876623041793717, guid: 2c9ae92bb8d699947960ca2eeb1f81b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5574,8 +5537,8 @@ Transform:
   m_GameObject: {fileID: 2091336976}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.99, y: -3.61, z: 0}
-  m_LocalScale: {x: 4.58, y: 3.53, z: 1}
+  m_LocalPosition: {x: -7.53, y: -3.61, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1216748666}
@@ -5624,7 +5587,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 678844264964660696, guid: 61da8af8d31a25c49819a75894e2cdf5, type: 3}
+  m_Sprite: {fileID: -4097876623041793717, guid: 2c9ae92bb8d699947960ca2eeb1f81b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5661,8 +5624,8 @@ Transform:
   m_GameObject: {fileID: 2121152859}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.87, z: 0}
-  m_LocalScale: {x: 4.58, y: 3.53, z: 1}
+  m_LocalPosition: {x: 1.02, y: -3.87, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1216748666}
@@ -5710,8 +5673,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 678844264964660696, guid: 61da8af8d31a25c49819a75894e2cdf5, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: -4097876623041793717, guid: 2c9ae92bb8d699947960ca2eeb1f81b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

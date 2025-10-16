@@ -70,10 +70,4 @@ public class pauseScript : MonoBehaviour
         pauseCanvas.gameObject.SetActive(false);
         dialogueCanvas.gameObject.SetActive(true);
     }
-
-
-
-
-
-
 }

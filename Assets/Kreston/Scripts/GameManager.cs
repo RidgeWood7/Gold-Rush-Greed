@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
@@ -243,6 +244,13 @@ public class GameManager : MonoBehaviour
         else if (_colliderFields != null)
         {
             _colliderFields.enabled = true;
+        }
+    }
+    public void BuyTicket()
+    {
+        if (_money >= 2000f && _coal >= 200 && _drillsUnlockedOil)
+        {
+            SceneManager.LoadScene(3);
         }
     }
     public void SetMoneyMax()
