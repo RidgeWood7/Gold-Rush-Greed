@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
     public GameObject goldDrill2;
     public GameObject goldDrill3;
     public GameObject goldDrill4;
+    public GameObject stagecoachNoWheels;
+    public GameObject stagecoachWithWheels;
     #endregion
 
     [Header("Inventory:")]
@@ -127,8 +129,26 @@ public class GameManager : MonoBehaviour
     } //done
     private void Update()
     {
+        //updating wheels collected
+        wheel1.SetActive(!_wheelsCollected1 ? true : false);
+        wheel2.SetActive(!_wheelsCollected2 ? true : false);
+        wheel3.SetActive(!_wheelsCollected3 ? true : false);
+        wheel4.SetActive(!_wheelsCollected4 ? true : false);
+
+        //updating stagecoach model
+        if (_wheelsCollected1 && _wheelsCollected2 && _wheelsCollected3 && _wheelsCollected4)
+        {
+            stagecoachNoWheels.SetActive(false);
+            stagecoachWithWheels.SetActive(true);
+        }
+        else
+        {
+            stagecoachNoWheels.SetActive(true);
+            stagecoachWithWheels.SetActive(false);
+        }
+
         //updating transport
-        if(_hasHorseFeed)
+        if (_hasHorseFeed)
             _hasHorse = true;
         if (_wheelsCollected1 && _wheelsCollected2 && _wheelsCollected3 && _wheelsCollected4)
             _hasStagecoach = true;
