@@ -266,6 +266,10 @@ public class GameManager : MonoBehaviour
             _colliderFields.enabled = true;
         }
     }
+    public void CloseGame()
+    {
+        Application.Quit();
+    }
     public void BuyTicket()
     {
         if (_money >= 2000f && _coal >= 200 && _drillsUnlockedOil)
@@ -532,6 +536,7 @@ public class GameManager : MonoBehaviour
     public void Cheats()
     {
         _money += 1000000;
+        _coal += 200;
     }
     #endregion
 }
