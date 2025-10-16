@@ -52,50 +52,50 @@ public class GameManager : MonoBehaviour
 
     [Header("Inventory:")]
     //Inventory Bools For if the player has an item or not
-    [SerializeField] private bool _hasPan;
-    [SerializeField] private bool _hasSluiceBox;
-    [SerializeField] private int _sluiceBoxCost = 50;
-    [SerializeField] private bool _hasPick;
-    [SerializeField] private int _pickCost = 200;
-    [SerializeField] private bool _hasHorseFeed;
+    [SerializeField] static private bool _hasPan;
+    [SerializeField] static private bool _hasSluiceBox;
+    [SerializeField] static private int _sluiceBoxCost = 50;
+    [SerializeField] static private bool _hasPick;
+    [SerializeField] static private int _pickCost = 200;
+    [SerializeField] static private bool _hasHorseFeed;
     [Header("Transport:")]
 
     //bools for transport unlocked
-    [SerializeField] private bool _hasHorse;
-    [SerializeField] private bool _hasStagecoach;
-    [SerializeField] private bool _hasTrain;
-    [SerializeField] private bool _usingTown;
-    [SerializeField] private bool _usingHorse;
-    [SerializeField] private bool _usingStagecoach;
-    [SerializeField] private bool _usingTrain;
+    [SerializeField] static private bool _hasHorse;
+    [SerializeField] static private bool _hasStagecoach;
+    [SerializeField] static private bool _hasTrain;
+    [SerializeField] static private bool _usingTown = true;
+    [SerializeField] static private bool _usingHorse;
+    [SerializeField] static private bool _usingStagecoach;
+    [SerializeField] static private bool _usingTrain;
 
     //bools for unlocked regions
     [Header("River")]
-    [SerializeField] private bool _unlockedRiver;
+    [SerializeField] static private bool _unlockedRiver;
     public TilemapCollider2D _colliderRiver;
     [Header("Mines")]
-    [SerializeField] private bool _unlockedMines;
+    [SerializeField] static private bool _unlockedMines;
     public TilemapCollider2D _colliderMines;
     [Header("Fields")]
-    [SerializeField] private bool _unlockedFields;
+    [SerializeField] static private bool _unlockedFields;
     public TilemapCollider2D _colliderFields;
     [Header("Other:")]
 
     //Ints of the amount of things the player has
-    [SerializeField] private bool _wheelsCollected1;
-    [SerializeField] private bool _wheelsCollected2;
-    [SerializeField] private bool _wheelsCollected3;
-    [SerializeField] private bool _wheelsCollected4;
-    [SerializeField][Range(0f, 4f)] private int _drillsUnlockedGold;
-    [SerializeField] private bool _drillsUnlockedOil;
-    [SerializeField] private int _coal;
-    [SerializeField] private int _oil;
+    [SerializeField] static private bool _wheelsCollected1;
+    [SerializeField] static private bool _wheelsCollected2;
+    [SerializeField] static private bool _wheelsCollected3;
+    [SerializeField] static private bool _wheelsCollected4;
+    [SerializeField][Range(0f, 4f)] static private int _drillsUnlockedGold;
+    [SerializeField] static private bool _drillsUnlockedOil;
+    [SerializeField] static private int _coal;
+    [SerializeField] static private int _oil;
     [Header("Multipliers:")]
-    [SerializeField] private int _multDust = 1;
-    [SerializeField] private int _multIngot = 5;
-    [SerializeField] private int _multCoal = 5;
-    [SerializeField] private int _multDrilledOil = 10;
-    [SerializeField] private int _multDrilledGold = 50;
+    [SerializeField] static private int _multDust = 1;
+    [SerializeField] static private int _multIngot = 5;
+    [SerializeField] static private int _multCoal = 5;
+    [SerializeField] static private int _multDrilledOil = 10;
+    [SerializeField] static private int _multDrilledGold = 50;
     public static int _gold;
     public static int _maxGold;
     public static int _money;
@@ -103,15 +103,15 @@ public class GameManager : MonoBehaviour
     public static int maxWeight = 100;
 
     //Costs
-    [SerializeField] private int _goldDrillCost = 600;
-    [SerializeField] private int _oilDrillCost = 400;
-    [SerializeField] private int _RiverCost = 40; //must be < sluice box cost
-    [SerializeField] private int _FieldsCost = 500;
+    [SerializeField] static private int _goldDrillCost = 600;
+    [SerializeField] static private int _oilDrillCost = 400;
+    [SerializeField] static private int _RiverCost = 40; //must be < sluice box cost
+    [SerializeField] static private int _FieldsCost = 500;
 
     //Equiped Items
-    [SerializeField] private bool _equippedPan;
-    [SerializeField] private bool _equippedBox;
-    [SerializeField] private bool _equippedPick;
+    [SerializeField] static private bool _equippedPan;
+    [SerializeField] static private bool _equippedBox;
+    [SerializeField] static private bool _equippedPick;
 
     private void Start()
     {
@@ -126,6 +126,16 @@ public class GameManager : MonoBehaviour
     } //done
     private void Update()
     {
+        //updating transport
+        if(_hasHorseFeed)
+            _hasHorse = true;
+        if (_wheelsCollected1 && _wheelsCollected2 && _wheelsCollected3 && _wheelsCollected4)
+            _hasStagecoach = true;
+        if (_drillsUnlockedOil)
+        {
+            _hasTrain = true;
+        }
+
         //Updating UI for Inventory
         selectedPan.enabled = _equippedPan == true ? true : false;
         selectedBox.enabled = _equippedBox == true ? true : false;
@@ -237,7 +247,8 @@ public class GameManager : MonoBehaviour
     }
     public void SetMoneyMax()
     {
-        _gold = _maxGold;
+        if (_money > _maxGold)
+            _gold = _maxGold;
     }
     public void SelectTown()
     {
@@ -246,6 +257,7 @@ public class GameManager : MonoBehaviour
         _usingStagecoach = false;
         _usingTrain = false;
         _maxGold = 15;
+        SetMoneyMax();
     }
     public void SelectHorse()
     {
@@ -256,6 +268,7 @@ public class GameManager : MonoBehaviour
             _usingStagecoach = false;
             _usingTrain = false;
             _maxGold = 25;
+            SetMoneyMax();
         }
     }
     public void SelectStagecoach()
@@ -267,6 +280,7 @@ public class GameManager : MonoBehaviour
             _usingStagecoach = true;
             _usingTrain = false;
             _maxGold = 50;
+            SetMoneyMax();
         }
     }
     public void SelectTrain()
@@ -279,6 +293,7 @@ public class GameManager : MonoBehaviour
             _usingTrain = true;
             _coal -= 20;
             _maxGold = 100;
+            SetMoneyMax();
         }
     }
     public void buyRiver()
@@ -335,6 +350,7 @@ public class GameManager : MonoBehaviour
     {
         _money += _gold;
         weight = 0;
+        _gold = 0;
     }
     public void PurchaseBox()
     {
