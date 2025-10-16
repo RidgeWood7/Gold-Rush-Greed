@@ -42,13 +42,7 @@ MonoBehaviour:
       <Press Q to close Dialogue>'
     icon: {fileID: 0}
   - name: Doug
-    dialogue: 'I think it''s time I get rich and get out this town.
-
-
-      <Press
-      Space to go to Next Text>
-
-      <Press Q to close Dialogue>'
+    dialogue: I think it's time I get rich and get out this town.
     icon: {fileID: 0}
   - name: Land Agent
     dialogue: Hey! Sir!

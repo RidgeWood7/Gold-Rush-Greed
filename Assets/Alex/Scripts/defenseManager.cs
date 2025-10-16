@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class defenseManager : MonoBehaviour
 {
@@ -81,11 +82,11 @@ public class defenseManager : MonoBehaviour
 
 
         addMoney.Invoke();
-        
+
         //This line toggles the defense parent 
         //transform.parent.gameObject.SetActive(false);
 
-        //SWAP SCENES HERE 
+        SceneManager.LoadScene(1);
     }
 
     private void spawnBandit()
