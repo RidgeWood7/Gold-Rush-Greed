@@ -1,131 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2301242045104604911
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8453349286771538245}
-  - component: {fileID: 6576727590460333349}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8453349286771538245
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2301242045104604911}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2013544197006883490}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6576727590460333349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2301242045104604911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33e57f1a57ad532418b008f289151df0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  moneyAmtTextTools: {fileID: 0}
-  moneyAmtTextLand: {fileID: 0}
-  goldDrillCount: {fileID: 0}
-  oilDrillCount: {fileID: 0}
-  goldText: {fileID: 0}
-  coalText: {fileID: 0}
-  weightText: {fileID: 0}
-  storeCanvas: {fileID: 0}
-  ownBox: {fileID: 0}
-  ownPick: {fileID: 0}
-  ownGoldDrill: {fileID: 0}
-  ownOilDrill: {fileID: 0}
-  ownRiver: {fileID: 0}
-  ownFields: {fileID: 0}
-  usingTown: {fileID: 0}
-  usingHorse: {fileID: 0}
-  usingStagecoach: {fileID: 0}
-  usingTrain: {fileID: 0}
-  collectedPan: {fileID: 0}
-  collectedBox: {fileID: 0}
-  collectedPick: {fileID: 0}
-  selectedPan: {fileID: 0}
-  selectedBox: {fileID: 0}
-  selectedPick: {fileID: 0}
-  collectedGoldDrill: {fileID: 0}
-  collectedOilDrill: {fileID: 0}
-  wheel1: {fileID: 0}
-  wheel2: {fileID: 0}
-  wheel3: {fileID: 0}
-  wheel4: {fileID: 0}
-  feed: {fileID: 0}
-  oilDrill: {fileID: 0}
-  goldDrill1: {fileID: 0}
-  goldDrill2: {fileID: 0}
-  goldDrill3: {fileID: 0}
-  goldDrill4: {fileID: 0}
-  _hasPan: 0
-  _hasSluiceBox: 0
-  _sluiceBoxCost: 50
-  _hasPick: 0
-  _pickCost: 200
-  _hasHorseFeed: 0
-  _hasHorse: 0
-  _hasStagecoach: 0
-  _hasTrain: 0
-  _usingTown: 0
-  _usingHorse: 0
-  _usingStagecoach: 0
-  _usingTrain: 0
-  _unlockedRiver: 0
-  _colliderRiver: {fileID: 0}
-  _unlockedMines: 0
-  _colliderMines: {fileID: 0}
-  _unlockedFields: 0
-  _colliderFields: {fileID: 0}
-  _wheelsCollected1: 0
-  _wheelsCollected2: 0
-  _wheelsCollected3: 0
-  _wheelsCollected4: 0
-  _drillsUnlockedGold: 0
-  _drillsUnlockedOil: 0
-  _coal: 0
-  _oil: 0
-  _multDust: 1
-  _multIngot: 5
-  _multCoal: 5
-  _multDrilledOil: 10
-  _multDrilledGold: 50
-  _goldDrillCost: 600
-  _oilDrillCost: 400
-  _RiverCost: 40
-  _MinesCost: 300
-  _FieldsCost: 500
-  _equippedPan: 0
-  _equippedBox: 0
-  _equippedPick: 0
-  onCollectFeed:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &7716832994979577446
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,8 +35,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8453349286771538245}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4391026288943263891
@@ -307,19 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   removeGold:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6576727590460333349}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: RemoveGold
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   banditBleed: {fileID: 870296081032610902}
 --- !u!95 &7510732637084602161
 Animator:
@@ -5090,7 +4951,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
+  - {fileID: 2100000, guid: c37b74121b8df34408c528679838907c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

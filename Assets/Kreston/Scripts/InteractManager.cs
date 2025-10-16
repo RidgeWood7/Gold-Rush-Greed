@@ -9,14 +9,12 @@ public class InteractManager : MonoBehaviour
     [SerializeField] public TMPro.TMP_Text pressE;
 
     //All Unity Events
-    public UnityEvent onInteractDialogueLA;
-    public UnityEvent onInteractDialogueMO;
+    public UnityEvent onInteractDialogue;
     public UnityEvent collectDust;
     public UnityEvent collectIngot;
     public UnityEvent collectCoal;
     public UnityEvent onInteractStore;
     public UnityEvent onInteractLandStore;
-    public UnityEvent onInteractTransport;
     public UnityEvent collectWheel1;
     public UnityEvent collectWheel2;
     public UnityEvent collectWheel3;
@@ -26,8 +24,7 @@ public class InteractManager : MonoBehaviour
 
     [SerializeField] private float _interactRange;
     private CircleCollider2D _interactCollider;
-    private bool _nearbyDialogueLA;
-    private bool _nearbyDialogueMO;
+    private bool _nearbyDialogue;
     private bool _nearbyCollectableDust;
     private bool _nearbyCollectableIngot;
     private bool _nearbyCollectableCoal;
@@ -38,7 +35,6 @@ public class InteractManager : MonoBehaviour
     private bool _nearbyCollectableFeed;
     private bool _nearbyStore;
     private bool _nearbyLandStore;
-    private bool _nearbyTransport;
     private bool _nearbyHorse;
 
     private void Awake() =>_interactCollider = GetComponent<CircleCollider2D>();
@@ -48,7 +44,7 @@ public class InteractManager : MonoBehaviour
     {
         _interactCollider.radius = _interactRange;
 
-        if (_nearbyDialogueLA || _nearbyDialogueMO || _nearbyCollectableDust || _nearbyCollectableIngot || _nearbyCollectableCoal || _nearbyCollectableWheel1 || _nearbyCollectableWheel2 || _nearbyCollectableWheel3 || _nearbyCollectableWheel4 || _nearbyCollectableFeed || _nearbyStore || _nearbyLandStore || _nearbyHorse || _nearbyTransport)
+        if (_nearbyDialogue || _nearbyCollectableDust || _nearbyCollectableIngot || _nearbyCollectableCoal || _nearbyCollectableWheel1 || _nearbyCollectableWheel2 || _nearbyCollectableWheel3 || _nearbyCollectableWheel4 || _nearbyCollectableFeed || _nearbyStore || _nearbyLandStore)
         {
             pressE.enabled = true;
         }
@@ -59,7 +55,9 @@ public class InteractManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.E))
         {
-            if (_nearbyCollectableDust)
+            if (_nearbyDialogue)
+                onInteractDialogue.Invoke();
+            else if (_nearbyCollectableDust)
                 collectDust.Invoke();
             else if (_nearbyCollectableIngot)
                 collectIngot.Invoke();
@@ -79,30 +77,16 @@ public class InteractManager : MonoBehaviour
                 onInteractStore.Invoke();
             else if (_nearbyLandStore)
                 onInteractLandStore.Invoke();
-            else if (_nearbyTransport)
-                onInteractTransport.Invoke();
-
-            //ADD TO THE IF ABOVE IF YOU ADD MORE INTERACTIONS!!!!!!!!!!!!!!!!!!!!
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                if (_nearbyDialogueLA)
-                    onInteractDialogueLA.Invoke();
-                else if (_nearbyDialogueMO)
-                    onInteractDialogueMO.Invoke();
-                else if (_nearbyHorse)
-                    horse.Invoke();
-            }
-
+            else if (_nearbyHorse)
+                onInteractLandStore.Invoke();
         }
     }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("DialogueLA"))
-            _nearbyDialogueLA = true;
-        else if (collision.gameObject.CompareTag("DialogueMO"))
-            _nearbyDialogueMO = true;
+        if (collision.gameObject.CompareTag("Dialogue"))
+            _nearbyDialogue = true;
         else if (collision.gameObject.CompareTag("CollectableDust"))
             _nearbyCollectableDust = true;
         else if (collision.gameObject.CompareTag("CollectableIngot"))
@@ -125,13 +109,10 @@ public class InteractManager : MonoBehaviour
             _nearbyLandStore = true;
         else if (collision.gameObject.CompareTag("Horse"))
             _nearbyHorse = true;
-        else if (collision.gameObject.CompareTag("Transport"))
-            _nearbyTransport = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        _nearbyDialogueLA = false;
-        _nearbyDialogueMO = false;
+        _nearbyDialogue = false;
         _nearbyCollectableDust = false;
         _nearbyCollectableIngot = false;
         _nearbyCollectableCoal = false;
@@ -142,7 +123,6 @@ public class InteractManager : MonoBehaviour
         _nearbyCollectableFeed = false;
         _nearbyStore = false;
         _nearbyLandStore = false;
-        _nearbyTransport = false;
         _nearbyHorse = false;
     }
 

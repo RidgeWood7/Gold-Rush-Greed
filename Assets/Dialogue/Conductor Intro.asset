@@ -55,8 +55,9 @@ MonoBehaviour:
     dialogue: Alright, when can I start?
     icon: {fileID: 3943562803724297591, guid: 494eb83602aeb66438e198be60dae2dd, type: 3}
   - name: Conductor
-    dialogue: Whenever you'd like. If you don't have mining equipment, I think someone
-      in town sells some.
+    dialogue: Whenever you'd like. Just come to my house with your gear, and I'll
+      show you to the cave. If you don't have mining equipment, I think someone in
+      town sells some.
     icon: {fileID: 3943562803724297591, guid: 494eb83602aeb66438e198be60dae2dd, type: 3}
   - name: Conductor
     dialogue: See you later, Doug!
